@@ -1960,7 +1960,7 @@ do
 			text.Text = value
 		end
 		--
-		function textbox:set_callback(p_callback)
+		function textbox:SetCallback(p_callback)
 			callback = p_callback
 			callback(self:get())
 		end
@@ -2095,7 +2095,7 @@ do
 			end
 		end
 		--
-		function toggle:set_callback(p_callback)
+		function toggle:SetCallback(p_callback)
 			callback = p_callback
 			callback(self:get())
 		end
@@ -2135,7 +2135,7 @@ do
 			local hh, ss, vv = def:ToHSV()
 			local colorpicker = {toggle, axis = toggle.axis, index = toggle.colorpickers, current = {hh, ss, vv , (transp or 0)}, holding = {picker = false, huepicker = false, transparency = false}, holder = {inline = nil, picker = nil, picker_cursor = nil, huepicker = nil, huepicker_cursor = {}, transparency = nil, transparencybg = nil, transparency_cursor = {}, drawings = {}}}
 			--
-			function colorpicker:set_callback(c)
+			function colorpicker:SetCallback(c)
 				callback = c
 				callback(self:get())
 			end
@@ -2214,7 +2214,7 @@ do
 				end
 			end
 			--
-			function colorpicker:set_callback(p_callback)
+			function colorpicker:SetCallback(p_callback)
 				callback = p_callback
 				callback(self:get())
 			end
@@ -2705,7 +2705,7 @@ do
 				callback(self:get())
 			end
 			--
-			function keybind:set_callback(p_callback)
+			function keybind:SetCallback(p_callback)
 				callback = p_callback
 				callback(self:get())
 			end
@@ -3021,7 +3021,7 @@ do
 			callback(slider.current)
 		end
 		--
-		function slider:set_callback(p_callback)
+		function slider:SetCallback(p_callback)
 			callback = p_callback
 			callback(self:get())
 		end
@@ -3141,7 +3141,7 @@ do
 			return nil
 		end
 		--
-		function button:set_callback(p_callback)
+		function button:SetCallback(p_callback)
 			callback = p_callback
 		end
 		--
@@ -3399,7 +3399,7 @@ do
 			end
 		end
 		--
-		function dropdown:set_callback(p_callback)
+		function dropdown:SetCallback(p_callback)
 			callback = p_callback
 			callback(self:get())
 		end
@@ -3678,7 +3678,7 @@ do
 			end
 		end
 		--
-		function multibox:set_callback(p_callback)
+		function multibox:SetCallback(p_callback)
 			callback = p_callback
 			callback(self:get())
 		end
@@ -3973,7 +3973,7 @@ do
 			callback(Enum[keybind.current[1]][keybind.current[2]], keybind.active)
 		end
 		--
-		function keybind:set_callback(p_callback)
+		function keybind:SetCallback(p_callback)
 			callback = p_callback
 			callback(Enum[keybind.current[1]][keybind.current[2]], keybind.active)
 		end
@@ -4187,7 +4187,7 @@ do
 		local hh, ss, vv = def:ToHSV()
 		local colorpicker = {axis = section.currentAxis, secondColorpicker = false, current = {hh, ss, vv , (transp or 0)}, holding = {picker = false, huepicker = false, transparency = false}, holder = {inline = nil, picker = nil, picker_cursor = nil, huepicker = nil, huepicker_cursor = {}, transparency = nil, transparencybg = nil, transparency_cursor = {}, drawings = {}}}
 		--
-		function colorpicker:set_callback(c)
+		function colorpicker:SetCallback(c)
 			callback = c
 			callback(self:get())
 		end
@@ -4277,7 +4277,7 @@ do
 			end
 		end
 		--
-		function colorpicker:set_callback(p_callback)
+		function colorpicker:SetCallback(p_callback)
 			callback = p_callback
 			callback(self:get())
 		end
@@ -4658,7 +4658,7 @@ do
 			local hh, ss, vv = def:ToHSV()
 			local colorpicker = {axis = colorpicker.axis, current = {hh, ss, vv , (transp or 0)}, holding = {picker = false, huepicker = false, transparency = false}, holder = {inline = nil, picker = nil, picker_cursor = nil, huepicker = nil, huepicker_cursor = {}, transparency = nil, transparencybg = nil, transparency_cursor = {}, drawings = {}}}
 			--
-			function colorpicker:set_callback(c)
+			function colorpicker:SetCallback(c)
 				callback = c
 				callback(self:get())
 			end
@@ -4732,7 +4732,7 @@ do
 				end
 			end
 			--
-			function colorpicker:set_callback(p_callback)
+			function colorpicker:SetCallback(p_callback)
 				callback = p_callback
 				callback(self:get())
 			end
@@ -5292,7 +5292,7 @@ do
 			end
 		end
 		--
-		function listbox:set_callback(p_callback)
+		function listbox:SetCallback(p_callback)
 			callback = p_callback
 			callback(self:get())
 		end
@@ -5366,20 +5366,6 @@ do
 		end
 		--
 		library.began[#library.began + 1] = function(input)
-			-- startIndex: 2
-			-- buttons: 10
-			-- maxShownButtons: 8
-			
-			-- we know that there can be 1 new shown if we are at startIndex 2
-			-- shownMin: startIndex
-			-- showmMax: 7 + startIndex
-
-			-- startIndex: 1
-			-- buttons: 4
-			-- maxShownButtons: 8
-			
-			-- now there cannot be more than 4 shown
-
 			local shownMax = #listbox.buttons <= 8 and #listbox.buttons or 7 + listbox.startindex
 			for i = listbox.startindex, shownMax do
 				local button = listbox.buttons[i]
