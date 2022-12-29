@@ -314,12 +314,12 @@ do
 	function utility:LoadImage(instance, imageName, imageLink)
 		local data
 		--
-		if isfile(library.folders.assets.."/ui/"..imageName..".png") then
-			data = readfile(library.folders.assets.."/ui/"..imageName..".png")
+		if isfile(library.folders.ui..imageName..".png") then
+			data = readfile(library.folders.ui..imageName..".png")
 		else
 			if imageLink then
 				data = game:HttpGet(imageLink)
-				writefile(library.folders.assets.."/ui/"..imageName..".png", data)
+				writefile(library.folders.ui..imageName..".png", data)
 			else
 				return
 			end
