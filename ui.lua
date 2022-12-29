@@ -23,6 +23,7 @@ local library = {
 	folders = {
 		main = "crip",
 		assets = "crip/assets",
+		ui = "crip/assets/ui",
 		configs = "crip/configs"
 	},
 	shared = {
