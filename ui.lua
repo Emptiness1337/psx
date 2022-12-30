@@ -3681,7 +3681,7 @@ do
 		--
 		function multibox:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:Get())
+			task.spawn(callback, self:Get())
 		end
 		--
 		function multibox:Get()
@@ -3689,6 +3689,7 @@ do
 		end
 		--
 		multibox_value.Text = multibox:Serialize(multibox:Resort(multibox.current, options))
+		task.spawn(callback, tbl)
 		--
 		library.began[#library.began + 1] = function(Input)
 			if Input.UserInputType == Enum.UserInputType.MouseButton1 and window.isVisible and multibox_outline.Visible then
@@ -3698,11 +3699,13 @@ do
 							if not table.find(multibox.current, v[1].Text) then
 								multibox.current[#multibox.current + 1] = v[1].Text
 								multibox_value.Text = multibox:Serialize(multibox:Resort(multibox.current, options))
+								task.spawn(callback, multibox.current)
 								multibox:Update()
 							else
 								if #multibox.current > min then
 									table.remove(multibox.current, table.find(multibox.current, v[1].Text))
 									multibox_value.Text = multibox:Serialize(multibox:Resort(multibox.current, options))
+									task.spawn(callback, multibox.current)
 									multibox:Update()
 								end
 							end
