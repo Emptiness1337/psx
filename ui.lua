@@ -517,7 +517,7 @@ do
 			--
 			for i,v in next, config do
 				if library.pointers[i] then
-					library.pointers[i]:set(v)
+					library.pointers[i]:Set(v)
 				end
 			end
 		end
@@ -1947,7 +1947,7 @@ do
 			return self.current
 		end
 		--
-		function textbox:set(value, final)
+		function textbox:Set(value, final)
 			if value ~= "" then
 				utility:UpdateTransparency(placeholder_text, 0)
 				placeholder_text.Transparency = 0
@@ -1978,7 +1978,7 @@ do
 				})
 				--
 				inputcapture.FocusLost:Connect(function()
-					textbox:set(inputcapture.Text, true)
+					textbox:Set(inputcapture.Text, true)
 					if textbox.current == "" then
 						utility:UpdateTransparency(placeholder_text, 0.25)
 						placeholder_text.Transparency = 0.25
@@ -1987,7 +1987,7 @@ do
 				end)
 				--
 				inputcapture:GetPropertyChangedSignal("Text"):Connect(function()
-					textbox:set(inputcapture.Text, false)
+					textbox:Set(inputcapture.Text, false)
 				end)
 
 				utility:UpdateTransparency(placeholder_text, 0)
@@ -2082,7 +2082,7 @@ do
 			return toggle.current
 		end
 		--
-		function toggle:set(bool)
+		function toggle:Set(bool)
 			if bool or not bool then
 				toggle.current = bool
 				toggle_frame.Color = toggle.current == true and theme.accent or theme.lightcontrast
@@ -2191,7 +2191,7 @@ do
 			end
 			utility:LoadImage(colorpicker__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
 			--
-			function colorpicker:set(color, transp_val)
+			function colorpicker:Set(color, transp_val)
 				if typeof(color) == "table" then
 					if color.Color and color.Transparency then
 						local h, s, v = table.unpack(color.Color)
@@ -2267,7 +2267,7 @@ do
 					colorpicker.holder.background.Color = Color3.fromHSV(colorpicker.current[1], 1, 1)
 				end
 				--
-				colorpicker:set(colorpicker.current)
+				colorpicker:Set(colorpicker.current)
 				return self
 			end
 			--
@@ -2696,7 +2696,7 @@ do
 				return keybind.current
 			end
 			--
-			function keybind:set(tbl)
+			function keybind:Set(tbl)
 				keybind.current = tbl.Key
 				keybind.mode = tbl.Mode or "Always"
 				keybind_value.Text = #keybind.current > 0 and keybind:Shorten(keybind.current[2]) or "..."
@@ -3013,7 +3013,7 @@ do
 		--
 		utility:LoadImage(slider__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
 		--
-		function slider:set(value)
+		function slider:Set(value)
 			slider.current = math.clamp(math.round(value * slider.decimals) / slider.decimals, slider.min, slider.max)
 			local percent = 1 - ((slider.max - slider.current) / (slider.max - slider.min))
 			slider_value.Text = slider.current..slider.sub.."/"..slider.max..slider.sub
@@ -3031,14 +3031,14 @@ do
 			local percent = math.clamp(mouseLocation.X - slider_slide.Position.X, 0, slider_frame.Size.X) / slider_frame.Size.X
 			local value = math.floor((slider.min + (slider.max - slider.min) * percent) * slider.decimals) / slider.decimals
 			value = math.clamp(value, slider.min, slider.max)
-			slider:set(value)
+			slider:Set(value)
 		end
 		--
 		function slider:Get()
 			return slider.current
 		end
 		--
-		slider:set(slider.current)
+		slider:Set(slider.current)
 		--
 		library.began[#library.began + 1] = function(Input)
 			if Input.UserInputType == Enum.UserInputType.MouseButton1 and slider_outline.Visible and window.isVisible and page.open and utility:MouseOverDrawing({section.section_frame.Position.X, section.section_frame.Position.Y + slider.axis, section.section_frame.Position.X + section.section_frame.Size.X, section.section_frame.Position.Y + slider.axis + 27}) and not window:IsOverContent() then
@@ -3388,10 +3388,10 @@ do
 		function dropdown:UpdateOptions(new_options)
 			options = new_options
 			dropdown.options = new_options
-			self:set(table.find(new_options, self:Get()) or new_options[1])
+			self:Set(table.find(new_options, self:Get()) or new_options[1])
 		end
 		--
-		function dropdown:set(value)
+		function dropdown:Set(value)
 			if typeof(value) == "string" and table.find(options, value) then
 				dropdown.current = value
 				dropdown_value.Text = value
@@ -3671,7 +3671,7 @@ do
 			return newtbl
 		end
 		--
-		function multibox:set(tbl)
+		function multibox:Set(tbl)
 			if typeof(tbl) == "table" then
 				multibox.current = tbl
 				multibox_value.Text =  utility:WrapText(multibox:Serialize(multibox:Resort(multibox.current, options)), multibox_frame.Size.X - 23)
@@ -3964,7 +3964,7 @@ do
 			return keybind.current
 		end
 		--
-		function keybind:set(tbl)
+		function keybind:Set(tbl)
 			keybind.current = tbl.Key
 			keybind.mode = tbl.Mode or "Always"
 			keybind_value.Text = #keybind.current > 0 and keybind:Shorten(keybind.current[2]) or "..."
@@ -4254,7 +4254,7 @@ do
 		end
 		utility:LoadImage(colorpicker__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
 		--
-		function colorpicker:set(color, transp_val)
+		function colorpicker:Set(color, transp_val)
 			if typeof(color) == "table" then
 				if color.Color and color.Transparency then
 					local h, s, v = table.unpack(color.Color)
@@ -4330,7 +4330,7 @@ do
 				colorpicker.holder.background.Color = Color3.fromHSV(colorpicker.current[1], 1, 1)
 			end
 			--
-			colorpicker:set(colorpicker.current)
+			colorpicker:Set(colorpicker.current)
 		end
 		--
 		function colorpicker:Get()
@@ -4717,7 +4717,7 @@ do
 			end
 			utility:LoadImage(colorpicker__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
 			--
-			function colorpicker:set(color, transp_val)
+			function colorpicker:Set(color, transp_val)
 				if typeof(color) == "table" then
 					colorpicker.current = color
 					colorpicker_frame.Color = Color3.fromHSV(colorpicker.current[1], colorpicker.current[2], colorpicker.current[3])
@@ -4785,7 +4785,7 @@ do
 					colorpicker.holder.background.Color = Color3.fromHSV(colorpicker.current[1], 1, 1)
 				end
 				--
-				colorpicker:set(colorpicker.current)
+				colorpicker:Set(colorpicker.current)
 			end
 			--
 			function colorpicker:Get()
@@ -5274,7 +5274,7 @@ do
 			return self.current
 		end
 		--
-		function listbox:set(value, internal)
+		function listbox:Set(value, internal)
 			for _, toset in next, value do
 				if not self.buttons[toset[2]] or self.buttons[toset[2]].Text ~= toset[1] then
 					if not self.buttons[1] then
@@ -5356,10 +5356,10 @@ do
 							toset[#toset + 1] = self:Get()[idx]
 						end
 					end
-					self:set(toset)
+					self:Set(toset)
 				else
 					if list[1] then
-						self:set({{list[1], table.find(list, list[1])}})
+						self:Set({{list[1], table.find(list, list[1])}})
 					end
 				end
 			end
@@ -5400,9 +5400,9 @@ do
 								end
 							end
 							--
-							listbox:set(newlist)
+							listbox:Set(newlist)
 						elseif listbox:Get()[1][2] ~= i then
-							listbox:set({{listbox.buttons[i].Text, i}})
+							listbox:Set({{listbox.buttons[i].Text, i}})
 						end
 						--
 						return
@@ -5533,7 +5533,7 @@ do
 			return configLoader.current
 		end
 		--
-		function configLoader:set(current)
+		function configLoader:Set(current)
 			configLoader.current = current
 			configLoader:Refresh()
 		end
