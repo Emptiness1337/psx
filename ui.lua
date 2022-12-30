@@ -495,17 +495,17 @@ do
 			local config = {}
 			--
 			for i,v in next, library.pointers do
-				if type(v:get()) == "table" and v:get().Transparency then
-					local hue, sat, val = v:get().Color:ToHSV()
-					config[i] = {Color = {hue, sat, val}, Transparency = v:get().Transparency}
+				if type(v:Get()) == "table" and v:Get().Transparency then
+					local hue, sat, val = v:Get().Color:ToHSV()
+					config[i] = {Color = {hue, sat, val}, Transparency = v:Get().Transparency}
 				elseif v.keybindname then
-					local key, mode = v:get(), v.mode
+					local key, mode = v:Get(), v.mode
 					config[i] = {Key = key, Mode = mode}
-				elseif typeof(v:get()) == "Color3" then
-					local hue, sat, val = v:get():ToHSV()
+				elseif typeof(v:Get()) == "Color3" then
+					local hue, sat, val = v:Get():ToHSV()
 					config[i] = {Color = {hue, sat, val}, Transparency = v.current[4] or 1}
 				else
-					config[i] = v:get()
+					config[i] = v:Get()
 				end
 			end
 			--
@@ -1943,7 +1943,7 @@ do
 			Color = "textcolor"
 		}
 		--
-		function textbox:get()
+		function textbox:Get()
 			return self.current
 		end
 		--
@@ -1962,7 +1962,7 @@ do
 		--
 		function textbox:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
 		library.began[#library.began + 1] = function(input)
@@ -1993,7 +1993,7 @@ do
 				utility:UpdateTransparency(placeholder_text, 0)
 				placeholder_text.Transparency = 0
 
-				inputcapture.Text = resetonfocus and "" or textbox:get()
+				inputcapture.Text = resetonfocus and "" or textbox:Get()
 				inputcapture:CaptureFocus()
 			end
 		end
@@ -2078,7 +2078,7 @@ do
 		--
 		utility:LoadImage(toggle__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
 		--
-		function toggle:get()
+		function toggle:Get()
 			return toggle.current
 		end
 		--
@@ -2097,7 +2097,7 @@ do
 		--
 		function toggle:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
 		library.colors[toggle_frame] = {
@@ -2137,7 +2137,7 @@ do
 			--
 			function colorpicker:SetCallback(c)
 				callback = c
-				callback(self:get())
+				callback(self:Get())
 			end
 			--
 			local colorpicker_outline = utility:Create("Frame", {Vector2.new(section.section_frame.Size.X-(toggle.colorpickers == 0 and (30+4) or (64 + 4)),colorpicker.axis), section.section_frame}, {
@@ -2216,7 +2216,7 @@ do
 			--
 			function colorpicker:SetCallback(p_callback)
 				callback = p_callback
-				callback(self:get())
+				callback(self:Get())
 			end
 			--
 			function colorpicker:Refresh()
@@ -2271,7 +2271,7 @@ do
 				return self
 			end
 			--
-			function colorpicker:get()
+			function colorpicker:Get()
 				return {Color = Color3.fromHSV(colorpicker.current[1], colorpicker.current[2], colorpicker.current[3]), Transparency = colorpicker.current[4]}
 			end
 			--
@@ -2585,7 +2585,7 @@ do
 			toggle.colorpickers = toggle.colorpickers + 1
 			section:Update()
 			--
-			callback(colorpicker:get())
+			callback(colorpicker:Get())
 			return toggle, colorpicker
 		end
 		--
@@ -2692,7 +2692,7 @@ do
 				return false
 			end
 			--
-			function keybind:get()
+			function keybind:Get()
 				return keybind.current
 			end
 			--
@@ -2702,12 +2702,12 @@ do
 				keybind_value.Text = #keybind.current > 0 and keybind:Shorten(keybind.current[2]) or "..."
 
 				keybind.active = keybind.mode == "Always" and true or false
-				callback(self:get())
+				callback(self:Get())
 			end
 			--
 			function keybind:SetCallback(p_callback)
 				callback = p_callback
-				callback(self:get())
+				callback(self:Get())
 			end
 			--
 			function keybind:is_active()
@@ -2736,12 +2736,12 @@ do
 					if Input.KeyCode == Enum[keybind.current[1]][keybind.current[2]] or Input.UserInputType == Enum[keybind.current[1]][keybind.current[2]] then
 						if keybind.mode == "Hold" then
 							local old = keybind.active
-							keybind.active = toggle:get()
+							keybind.active = toggle:Get()
 							if keybind.active then window.keybindslist:Add(keybindname or name, keybind_value.Text) else window.keybindslist:Remove(keybindname or name) end
 							if keybind.active ~= old then callback(Enum[keybind.current[1]][keybind.current[2]], keybind.active) end
 						elseif keybind.mode == "Toggle" then
 							local old = keybind.active
-							keybind.active = not keybind.active == true and toggle:get() or false
+							keybind.active = not keybind.active == true and toggle:Get() or false
 							if keybind.active then window.keybindslist:Add(keybindname or name, keybind_value.Text) else window.keybindslist:Remove(keybindname or name) end
 							if keybind.active ~= old then callback(Enum[keybind.current[1]][keybind.current[2]], keybind.active) end
 						end
@@ -3023,7 +3023,7 @@ do
 		--
 		function slider:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
 		function slider:Refresh()
@@ -3034,7 +3034,7 @@ do
 			slider:set(value)
 		end
 		--
-		function slider:get()
+		function slider:Get()
 			return slider.current
 		end
 		--
@@ -3137,7 +3137,7 @@ do
 			OutlineColor = "textborder",
 			Color = "textcolor"
 		}
-		function button:get()
+		function button:Get()
 			return nil
 		end
 		--
@@ -3388,7 +3388,7 @@ do
 		function dropdown:UpdateOptions(new_options)
 			options = new_options
 			dropdown.options = new_options
-			self:set(table.find(new_options, self:get()) or new_options[1])
+			self:set(table.find(new_options, self:Get()) or new_options[1])
 		end
 		--
 		function dropdown:set(value)
@@ -3401,10 +3401,10 @@ do
 		--
 		function dropdown:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
-		function dropdown:get()
+		function dropdown:Get()
 			return dropdown.current
 		end
 		--
@@ -3680,10 +3680,10 @@ do
 		--
 		function multibox:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
-		function multibox:get()
+		function multibox:Get()
 			return multibox.current
 		end
 		--
@@ -3960,7 +3960,7 @@ do
 			return false
 		end
 		--
-		function keybind:get()
+		function keybind:Get()
 			return keybind.current
 		end
 		--
@@ -4189,7 +4189,7 @@ do
 		--
 		function colorpicker:SetCallback(c)
 			callback = c
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
 		local colorpicker_outline = utility:Create("Frame", {Vector2.new(section.section_frame.Size.X-(30+4),colorpicker.axis), section.section_frame}, {
@@ -4279,7 +4279,7 @@ do
 		--
 		function colorpicker:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
 		function colorpicker:Refresh()
@@ -4333,7 +4333,7 @@ do
 			colorpicker:set(colorpicker.current)
 		end
 		--
-		function colorpicker:get()
+		function colorpicker:Get()
 			return Color3.fromHSV(colorpicker.current[1], colorpicker.current[2], colorpicker.current[3])
 		end
 		--
@@ -4660,7 +4660,7 @@ do
 			--
 			function colorpicker:SetCallback(c)
 				callback = c
-				callback(self:get())
+				callback(self:Get())
 			end
 			--
 			colorpicker_outline.Position = utility:Position(1, -(60+8), 0, colorpicker.axis, section.section_frame)
@@ -4734,7 +4734,7 @@ do
 			--
 			function colorpicker:SetCallback(p_callback)
 				callback = p_callback
-				callback(self:get())
+				callback(self:Get())
 			end
 			--
 			function colorpicker:Refresh()
@@ -4788,7 +4788,7 @@ do
 				colorpicker:set(colorpicker.current)
 			end
 			--
-			function colorpicker:get()
+			function colorpicker:Get()
 				return Color3.fromHSV(colorpicker.current[1], colorpicker.current[2], colorpicker.current[3])
 			end
 			--
@@ -5270,7 +5270,7 @@ do
 			listbox_scroll_frame.Size = utility:Size(0, 2, math.clamp(#self.buttons == 0 and 1 or 1 / (#self.buttons / 8), 0, 1), -2, listbox_scroll_outline)
 		end
 		--
-		function listbox:get()
+		function listbox:Get()
 			return self.current
 		end
 		--
@@ -5294,7 +5294,7 @@ do
 		--
 		function listbox:SetCallback(p_callback)
 			callback = p_callback
-			callback(self:get())
+			callback(self:Get())
 		end
 		--
 		function listbox:UpdateList(list, dontset, keepscroll)
@@ -5352,8 +5352,8 @@ do
 				if multichoice then
 					local toset = {}
 					for idx, val in next, list do
-						if self:get()[idx] then
-							toset[#toset + 1] = self:get()[idx]
+						if self:Get()[idx] then
+							toset[#toset + 1] = self:Get()[idx]
 						end
 					end
 					self:set(toset)
@@ -5392,7 +5392,7 @@ do
 						if multichoice then
 							local newlist = {{listbox.buttons[i].Text, i}}
 							--
-							for idx, val in next, listbox:get() do
+							for idx, val in next, listbox:Get() do
 								if listbox.buttons[i] ~= listbox.buttons[val[2]] then
 									newlist[#newlist + 1] = val
 								else
@@ -5401,7 +5401,7 @@ do
 							end
 							--
 							listbox:set(newlist)
-						elseif listbox:get()[1][2] ~= i then
+						elseif listbox:Get()[1][2] ~= i then
 							listbox:set({{listbox.buttons[i].Text, i}})
 						end
 						--
@@ -5529,7 +5529,7 @@ do
 			end
 		end
 		--
-		function configLoader:get()
+		function configLoader:Get()
 			return configLoader.current
 		end
 		--
