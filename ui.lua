@@ -3689,7 +3689,7 @@ do
 		end
 		--
 		multibox_value.Text = multibox:Serialize(multibox:Resort(multibox.current, options))
-		task.spawn(callback, tbl)
+		task.spawn(callback, multibox.current)
 		--
 		library.began[#library.began + 1] = function(Input)
 			if Input.UserInputType == Enum.UserInputType.MouseButton1 and window.isVisible and multibox_outline.Visible then
