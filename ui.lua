@@ -3675,6 +3675,7 @@ do
 			if typeof(tbl) == "table" then
 				multibox.current = tbl
 				multibox_value.Text =  utility:WrapText(multibox:Serialize(multibox:Resort(multibox.current, options)), multibox_frame.Size.X - 23)
+				task.spawn(callback, tbl)
 			end
 		end
 		--
